@@ -3,18 +3,21 @@ import React from 'react';
 
 function App() {
 
-  const [firstName, setFirstName] = React.useState("")
-  const [lastName, setLastName] = React.useState("")
+  //const [firstName, setFirstName] = React.useState("")
+  //const [lastName, setLastName] = React.useState("")
+    const [formData, setFormData] = React.useState(
+        {firstName: "", lastName: ""}
+    )
 
-  console.log("First Name: " + firstName + "/n Last Name: " + lastName)
+    console.log(formData)
 
-  function handleFirstName(event) {
-    //console.log(event.target.value)
-    setFirstName(event.target.value)
-  }
-
-  function handleLastName(event) {
-      setLastName(event.target.value)
+  function handleChange(event) {
+    setFormData(prevFormData => {
+        return {
+            ...prevFormData,
+            [event.target.name]: event.target.value
+        }
+    })
   }
 
   return (
@@ -22,12 +25,14 @@ function App() {
         <input
             type="text"
             placeholder="First Name"
-            onChange={handleFirstName}
-        /> 
+            onChange={handleChange}
+            name="firstName"
+        />
         <input
             type="text"
             placeholder="Last Name"
-            onChange={handleLastName}
+            onChange={handleChange}
+            name="lastName"
         />
       </form>
   )
