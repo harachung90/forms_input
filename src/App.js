@@ -3,45 +3,67 @@ import React from 'react';
 
 function App() {
 
-  //const [firstName, setFirstName] = React.useState("")
-  //const [lastName, setLastName] = React.useState("")
+    //const [firstName, setFirstName] = React.useState("")
+    //const [lastName, setLastName] = React.useState("")
     const [formData, setFormData] = React.useState(
-        {firstName: "", lastName: "", email: ""}
+        {
+            firstName: "",
+            lastName: "",
+            email: "",
+            comments: "",
+            isFriendly: true,
+        }
     )
 
-    console.log(formData)
+    function handleChange(event) {
+        const {name, value, type, checked} = event.target
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: type === "checkbox" ? checked : value
+            }
+        })
+    }
 
-  function handleChange(event) {
-    setFormData(prevFormData => {
-        return {
-            ...prevFormData,
-            [event.target.name]: event.target.value
-        }
-    })
-  }
-
-  return (
-      <form>
-        <input
-            type="text"
-            placeholder="First Name"
-            onChange={handleChange}
-            name="firstName"
-        />
-        <input
-            type="text"
-            placeholder="Last Name"
-            onChange={handleChange}
-            name="lastName"
-        />
-        <input
-            type="email"
-            placeholder="Email Address"
-            onChange={handleChange}
-            name="email"
-        />
-      </form>
-  )
+    return (
+        <form>
+            <input
+                type="text"
+                placeholder="First Name"
+                onChange={handleChange}
+                name="firstName"
+                value={formData.firstName}
+            />
+            <input
+                type="text"
+                placeholder="Last Name"
+                onChange={handleChange}
+                name="lastName"
+                value={formData.lastName}
+            />
+            <input
+                type="email"
+                placeholder="Email Address"
+                onChange={handleChange}
+                name="email"
+                value={formData.email}
+            />
+            <textarea
+                name="comments"
+                placeholder="Comments"
+                onChange={handleChange}
+                value={formData.comments}
+            />
+            <input
+                name="isFriendly"
+                type="checkbox"
+                id="isFriendly"
+                checked={formData.isFriendly}
+                onChange={handleChange}
+            />
+            <label htmlFor="isFriendly">Are you friendly?</label>
+        </form>
+    )
 }
 
 export default App;
